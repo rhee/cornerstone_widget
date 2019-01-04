@@ -30,7 +30,8 @@ def button_debounce(enable_if_failed=False):
             except Exception as e:
                 if enable_if_failed:
                     button.disabled = False
-                raise Exception from e
+                #raise Exception from e
+                raise Exception(str(e))
             button.disabled = False
 
         return wrapped_callback
@@ -67,7 +68,7 @@ def encode_numpy_b64(in_img, rgb=False):
     return base64.b64encode(img_bytes).decode()
 
 
-def get_nested(a_dict, *args, default_value=None):
+def get_nested(a_dict, *args, **kwargs): # def get_nested(a_dict, *args, default_value=None):
     """
     Safely gets items buried in a nested dictionary
     :param a_dict: nested dictionary to check
@@ -84,6 +85,8 @@ def get_nested(a_dict, *args, default_value=None):
     >>> get_nested(list_dict, 'a', 1, 'b')
     2
     """
+
+    default_value = kwargs['default_value'] if 'default_value' in kwargs else None
 
     value = a_dict
     for arg in args:

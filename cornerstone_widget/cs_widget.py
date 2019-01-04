@@ -11,6 +11,11 @@ from .utils import encode_numpy_b64, button_debounce
 MIN_RANGE = 1  # the minimum max-min value (prevent dividing by 0)
 
 
+# python 2.7 super() workaround
+__metaclass__ = type
+
+
+
 @widgets.register
 class CornerstoneWidget(widgets.DOMWidget):
     """
@@ -217,7 +222,7 @@ class CornerstoneToolbarWidget(WidgetObject):
 
         panel = widgets.VBox(c_toolbar + [self.cur_image_view])
 
-        super().__init__(panel)
+        super(CornerstoneToolbarWidget,self).__init__(panel) #super().__init__(panel)
 
     def update_image(self, in_image):
         self._cur_image_data = in_image
